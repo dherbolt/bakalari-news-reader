@@ -1,4 +1,5 @@
 /nbproject/private/
 /node_modules/
-/node/
+/data/
+/log/
 config.json

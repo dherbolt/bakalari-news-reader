@@ -6,7 +6,6 @@
 	var
 		request = require('request'),
 		jsdom = require('jsdom'),
-		fs = require('fs'),
 		trim = require('trim'),
 		jetpack = require('fs-jetpack'),
 		crypto = require('crypto'),
@@ -17,13 +16,13 @@
 		path += '/';
 	}
 
-	const LAST_READ_FILE_NAME = path + 'data.json';
-	const LAST_READ_INIT_INFO_FILE_NAME = path + 'data-info.json';
-	const LAST_READ_SCORE_FILE_NAME = path + 'data-score.json';
+	const LAST_READ_FILE_NAME = path + 'data/data.json';
+	const LAST_READ_INIT_INFO_FILE_NAME = path + 'data/data-info.json';
+	const LAST_READ_SCORE_FILE_NAME = path + 'data/data-score.json';
 	const CONFIG_FILE_NAME = path + 'config.json';
-	const LOG_FILE_NAME = path + 'log.txt';
+	const LOG_FILE_NAME = path + 'log/log.txt';
 
-	cfg = JSON.parse(fs.readFileSync(CONFIG_FILE_NAME, 'utf8'));
+	cfg = jetpack.read(CONFIG_FILE_NAME, 'json') || {};
 
 	log('Check for new message started');
 	if (cfg.targetServer.url[cfg.targetServer.url.length - 1] !== '/') {
@@ -274,7 +273,7 @@
 
 						if (newMsgs.length) {
 							log('New message{s} found: ' + newMsgs.length);
-							fs.writeFileSync(LAST_READ_FILE_NAME, JSON.stringify(newMsgs[0]), {encoding: 'utf8', flag: 'w'});
+							jetpack.write(LAST_READ_FILE_NAME, JSON.stringify(newMsgs[0], null, '\t'));
 
 							sendNewMessageMail(newMsgs);
 							sendCheckStatusEmail(true);
@@ -310,26 +309,9 @@
 	}
 
 	function isNewMessage (msg) {
-		var
-			lastReadMsg = '',
-			fileExists,
-			file;
+		let	lastReadMsg;
 
-		try {
-			fs.accessSync(LAST_READ_FILE_NAME);
-			fileExists = true;
-		}
-		catch (e) {
-			fileExists = false;
-		}
-
-		if (fileExists) {
-			lastReadMsg = fs.readFileSync(LAST_READ_FILE_NAME, 'utf8');
-		}
-
-		if (lastReadMsg) {
-			lastReadMsg = JSON.parse(lastReadMsg);
-		}
+		lastReadMsg = jetpack.read(LAST_READ_FILE_NAME, 'json') || {};
 
 		return JSON.stringify(lastReadMsg) !== JSON.stringify(msg);
 	}
@@ -506,7 +488,7 @@
 		timeStr = '[' + timeStr + ' ' + tmp.join(':') + ']';
 		msg = timeStr + ' ' + msg + '\n';
 
-		fs.appendFileSync(LOG_FILE_NAME, msg);
+		jetpack.append(LOG_FILE_NAME, msg);
 	}
 
 	function formatNumber (num) {

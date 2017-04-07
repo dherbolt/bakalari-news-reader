@@ -1,1 +1,1 @@
-.\node\node.exe main.js
+.\nodejs\node.exe main.js

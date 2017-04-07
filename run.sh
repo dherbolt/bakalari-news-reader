@@ -1,2 +1,2 @@
 #!/bin/bash
-~/bakalari-news-reader/node/bin/node ~/bakalari-news-reader/main.js
+~/bakalari-news-reader/nodejs/bin/node ~/bakalari-news-reader/main.js
