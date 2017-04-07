@@ -1,0 +1,25 @@
+{
+  "name": "bakalari-news-reader",
+  "version": "1.0.0",
+  "keywords": [
+    "util",
+    "functional",
+    "server",
+    "client",
+    "browser"
+  ],
+  "author": "Daniel Herbolt",
+  "contributors": [],
+  "dependencies": {
+    "crypto": "0.0.3",
+    "emailjs": "^1.0.4",
+    "fs-jetpack": "^0.13.3",
+    "http": "0.0.0",
+    "jsdom": "^8.4.0",
+    "request": "^2.72.0",
+    "trim": "0.0.1"
+  },
+  "scripts": {
+    "start": "node main.js"
+  }
+}

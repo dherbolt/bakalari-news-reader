@@ -1,0 +1,17 @@
+{
+	"targetServer": {
+		"url": "", // Bakalari web url
+		"loginName": "",
+		"password": ""
+	},
+	"emailRecepients": [
+	],
+	"checkStatusEmailRecipient": "",
+	"smtpServer": {
+		"user": "",
+		"password": "",
+		"host": "",
+		"tls": true,
+		"port": 587
+	}
+}
