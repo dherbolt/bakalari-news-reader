@@ -1,5 +1,7 @@
+config.json
 /nbproject/private/
 /node_modules/
 /data/
 /log/
-config.json
+/nodejs/
+/node_modules/
