@@ -3,6 +3,13 @@ rem targetFolderName=nodejs;
 
 rem echo "Downloading nodejs from: https://nodejs.org/"
 
+
+SET src_folder=node-v7.8.0-win-x64
+SET tar_folder=nodejs
+
+rmdir /S/Q node_modules
+rmdir /S/Q %tar_folder%
+
 md nodejs
 
 rem echo "Downloading nodejs - it make take a few minutes"
@@ -11,14 +18,12 @@ rem copy util\initProject\* nodejs
 
 rem cd nodejs
 
-echo "Unpacking"
-tools\7z.exe -onodejs x tools\node-v7.8.0-win-x64.zip
+echo "Unpacking NodeJS"
+tools\7z.exe x tools\%src_folder%.zip
 
 rem cd ..
 
 echo "Moving nodejs assets"
-SET src_folder=nodejs\node-v7.8.0-win-x64
-SET tar_folder=nodejs
 
 for /f %%a IN ('dir "%src_folder%" /b') do move %src_folder%\%%a %tar_folder%
 
